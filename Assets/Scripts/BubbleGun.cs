@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -6,6 +5,7 @@ public class BubbleGun : MonoBehaviour
 {
     public PreBubble PreBubblePrefab;
     public Transform FiringPoint;
+    public Animator PlayerAnimator;
     
     private void Update()
     {
@@ -46,5 +46,9 @@ public class BubbleGun : MonoBehaviour
             // Debug.Log($"Shot {projectile.name}", projectile);
             // Debug.Break();
         }
+        
+        // update animator
+        var downUp01 = (Vector3.Dot(transform.right, Vector3.up) + 1f) / 2f;
+        PlayerAnimator.SetFloat("AimDownUp01", downUp01);
     }
 }
