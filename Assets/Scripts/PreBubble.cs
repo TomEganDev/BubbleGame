@@ -26,9 +26,16 @@ public class PreBubble : MonoBehaviour
             Debug.Log($"[{Time.frameCount}] Bubble_Spawn triggered by {hit.collider.gameObject.name}", hit.collider);
             
             // attach
-            var bubble = Instantiate(BubblePrefab, hit.point, Quaternion.identity);
+            var hasReceiver = BubbleReceiver.TryGetReceiver(hit.collider.gameObject, out var receiver);
+            var bubble = Instantiate(BubblePrefab, hasReceiver ? receiver.transform.position : hit.point, Quaternion.identity);
             var bubbleState = Bubble.State.Floor;
-            if (hit.normal.y < -0.5f)
+            if (hasReceiver)
+            {
+                bubbleState = Bubble.State.Floating;
+                receiver.OnAttach(bubble);
+                bubble.SetSize(receiver.BubbleRadius);
+            }
+            else if (hit.normal.y < -0.5f)
             {
                 bubbleState = Bubble.State.Roof;
             }

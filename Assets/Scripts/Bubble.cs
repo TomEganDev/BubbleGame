@@ -15,15 +15,25 @@ public class Bubble : MonoBehaviour
     public State CurrentState { get; private set; }
 
     public ParticleSystem BubblePopVFX_Prefab;
+    public CircleCollider2D BubbleTrigger;
+    public Rigidbody2D Body;
+    public float FloatRiseSpeed = 0.01f;
 
     private int _spawnTick;
     public int SpawnTick => _spawnTick;
     private static Bubble[] _bubbleSlots = new Bubble[3];
-
+    
     public void OnSpawn(State state)
     {
         // set state
         CurrentState = state;
+
+        // initialize floating
+        if (CurrentState == State.Floating)
+        {
+            Body.bodyType = RigidbodyType2D.Dynamic;
+            Body.gravityScale = 0f;
+        }
         
         // bubble active queue logic
         _spawnTick = Time.frameCount;
@@ -50,6 +60,22 @@ public class Bubble : MonoBehaviour
         var vfxPos = destroyingBubble.transform.position;
         Instantiate(BubblePopVFX_Prefab, vfxPos, Quaternion.identity);
         Destroy(destroyingBubble.gameObject);
+    }
+
+    private void Update()
+    {
+        if (CurrentState != State.Floating)
+        {
+            return;
+        }
+
+        Body.AddForce(Vector2.up * FloatRiseSpeed);
+        
+    }
+
+    public void SetSize(float radius)
+    {
+        transform.localScale = Vector3.one * (radius / BubbleTrigger.radius);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
