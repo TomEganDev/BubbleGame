@@ -118,7 +118,10 @@ public class BCC : MonoBehaviour
         {
             _jumped = false;
             _jumping = false;
-            _bubblePopped = false;
+            if (_bubblePopped && time - _bubblePoppedTime > 0.016f) // todo - fix hacky wait time
+            {
+                _bubblePopped = false;
+            }
             
             _lastGroundedTime = time;
             var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow;
@@ -146,7 +149,7 @@ public class BCC : MonoBehaviour
             {
                 Body.linearVelocityY = 0f;
                 _jumping = false;
-                Debug.Log($"[{Time.time}] Shortfall");
+                Debug.Log($"[{Time.frameCount}] Shortfall");
             }
         }
         
