@@ -1000,7 +1000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1552398512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3004,7 +3004,7 @@ MonoBehaviour:
     ScreenPosition: {x: 0.001856979, y: 0.01}
     DeadZone:
       Enabled: 1
-      Size: {x: 0.12, y: 0.69}
+      Size: {x: 0.12, y: 0.33}
     HardLimits:
       Enabled: 1
       Size: {x: 0.8, y: 0.9}
