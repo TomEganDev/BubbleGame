@@ -23,8 +23,21 @@ public class PreBubble : MonoBehaviour
                 continue;
             }
             
+            Debug.Log($"[{Time.frameCount}] Bubble_Spawn triggered by {hit.collider.gameObject.name}", hit.collider);
+            
             // attach
-            Instantiate(BubblePrefab, hit.point, Quaternion.identity);
+            var bubble = Instantiate(BubblePrefab, hit.point, Quaternion.identity);
+            var bubbleState = Bubble.State.Floor;
+            if (hit.normal.y < -0.5f)
+            {
+                bubbleState = Bubble.State.Roof;
+            }
+            else if (hit.normal.y < 0.5f)
+            {
+                bubbleState = Bubble.State.Wall;
+            }
+            bubble.OnSpawn(bubbleState);
+            
             Destroy(gameObject);
 
             return;

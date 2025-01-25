@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,7 +8,6 @@ public class Player : SingletonComponent<Player>
 {
     public BCC BCC;
     public Rigidbody2D Body;
-
     public GameObject[] ChildLookups;
     
     private void Reset()

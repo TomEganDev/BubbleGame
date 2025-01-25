@@ -5,13 +5,13 @@ using UnityEngine.Assertions;
 public class BCC : MonoBehaviour
 {
     public Rigidbody2D Body;
-    public Collider2D LocalCollider;
-    public ParticleSystem BubblePopVFX;
+    public BoxCollider2D GroundedTrigger;
     
     public float PreGroundedJumpWindow = 0.15f;
     public float CoyoteWindow = 0.15f;
     public float InitialJumpVelocity = 9f;
     public float BubblePopVelocity = 13f;
+    public float BubblePopWallPushVelocity = 7f;
     public float SuperJumpVelocity = 18f;
 
     public float RunForce = 75f;
@@ -21,6 +21,7 @@ public class BCC : MonoBehaviour
     public float MaxAirStrafeSpeed = 10f;
 
     private bool _grounded;
+    public bool Grounded => _grounded;
     private float _lastGroundedTime;
     
     private bool _jumpButton;
@@ -28,16 +29,19 @@ public class BCC : MonoBehaviour
     private float _jumpButtonDownTime;
     
     private bool _jumped;
+    public bool Jumped => _jumped;
     private bool _jumping;
+    public bool Jumping => _jumping;
     private float _jumpedTime;
 
     private float _bubblePoppedTime;
     private bool _bubblePopped;
+    public bool BubblePopped => _bubblePopped;
     
     private void Reset()
     {
         Body = GetComponent<Rigidbody2D>();
-        LocalCollider = GetComponent<Collider2D>();
+        GroundedTrigger = GetComponentInChildren<BoxCollider2D>(includeInactive: true);
     }
 
     private void Update()
@@ -59,7 +63,13 @@ public class BCC : MonoBehaviour
         }
 
         // GROUNDED UPDATE
-        var hitCount = Physics2D.OverlapBox(transform.TransformPoint(LocalCollider.offset), Vector2.one, 0f, new ContactFilter2D(), GlobalBuffers.ColliderBuffer);
+        var boxOrigin = GroundedTrigger.transform.TransformPoint(GroundedTrigger.offset);
+        var hitCount = Physics2D.OverlapBox(
+            boxOrigin,
+            GroundedTrigger.size * GroundedTrigger.transform.lossyScale,
+            0f,
+            new ContactFilter2D(),
+            GlobalBuffers.ColliderBuffer);
         Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
 
         _grounded = false;
@@ -153,6 +163,8 @@ public class BCC : MonoBehaviour
         _jumping = true;
         
         Body.linearVelocityY = InitialJumpVelocity;
+        
+        Debug.Log($"[{Time.frameCount}] StartJump vel:{Body.linearVelocity:N2}");
     }
 
     private void StartSuperJump()
@@ -160,32 +172,53 @@ public class BCC : MonoBehaviour
         Body.linearVelocityY = SuperJumpVelocity;
         _jumped = true;
         _jumping = false;
+        
+        Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{Body.linearVelocity:N2}");
     }
 
-    private void StartBubblePopJump()
+    private void StartBubblePopJump(Bubble bubble)
     {
-        Body.linearVelocityY = BubblePopVelocity;
+        Body.linearVelocityY = bubble.CurrentState == Bubble.State.Roof ? -BubblePopVelocity : BubblePopVelocity;
+
+        if (bubble.CurrentState == Bubble.State.Wall)
+        {
+            HandleWallBubble(bubble);
+        }
+        
         _jumped = false;
         _jumping = false;
+        
+        Debug.Log($"[{Time.frameCount}] StartBubblePopJump Bubble_State:{bubble.CurrentState} vel:{Body.linearVelocity:N2}");
     }
 
-    public void OnBubblePop()
+    public void OnBubblePop(Bubble bubble)
     {
         var time = Time.time;
-        
-        BubblePopVFX.Play();
-        MainCamera.Instance.ScreenShake();
         
         _bubblePoppedTime = time;
         _bubblePopped = true;
             
-        if (_jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow)
+        if (_jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow && bubble.CurrentState != Bubble.State.Roof)
         {
             StartSuperJump();
+            if (bubble.CurrentState == Bubble.State.Wall)
+            {
+                HandleWallBubble(bubble);
+            }
+            
+            Debug.Log($"[{Time.frameCount}] PreGroundedSuperJump vel:{Body.linearVelocity:N2}");
         }
         else
         {
-            StartBubblePopJump();
+            StartBubblePopJump(bubble);
         }
+    }
+
+    private void HandleWallBubble(Bubble bubble)
+    {
+        Assert.IsTrue(bubble.CurrentState == Bubble.State.Wall);
+        
+        var onRight = bubble.transform.position.x > transform.position.x;
+        Body.linearVelocityX = onRight ? -BubblePopWallPushVelocity : BubblePopWallPushVelocity;
     }
 }
