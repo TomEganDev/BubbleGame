@@ -77,3 +77,4 @@ crashlytics-build.properties
 # Entity data from baked subscenes
 /[Aa]ssets/[Ss]ceneDependencyCache/
 /[Aa]ssets/[Ss]ceneDependencyCache.meta
+/.vsconfig
