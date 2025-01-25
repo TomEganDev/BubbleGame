@@ -4,200 +4,194 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BCC : MonoBehaviour
 {
-    public float MoveForce = 2f;
-    public float JumpSpeed = 3f;
-    public float BubbleJumpSpeed = 5f;
-    public float SuperJumpSpeed = 7f;
-    public float MaxJumpTime = 0.2f;
-    public float BubbleJumpWindow = .1f;
     public Rigidbody2D Body;
-    public CircleCollider2D GroundedCollider;
+    public Collider2D LocalCollider;
+    public ParticleSystem BubblePopVFX;
+    
+    public float PreGroundedJumpWindow = 0.15f;
+    public float CoyoteWindow = 0.15f;
+    public float InitialJumpVelocity = 9f;
+    public float BubblePopVelocity = 13f;
+    public float SuperJumpVelocity = 18f;
 
-    private bool _jumping;
-    private bool _superJumped;
+    public float RunForce = 75f;
+    public float AirStrafeForce = 30f;
+    public float MaxRunSpeed = 10f;
+    public float MaxFallSpeed = -15f;
+    public float MaxAirStrafeSpeed = 10f;
+
     private bool _grounded;
+    private float _lastGroundedTime;
+    
     private bool _jumpButton;
     private bool _jumpButtonDown;
     private float _jumpButtonDownTime;
+    
+    private bool _jumped;
+    private bool _jumping;
     private float _jumpedTime;
-    private float _bubbledTime;
-    private float _normalGravity;
 
+    private float _bubblePoppedTime;
+    private bool _bubblePopped;
+    
     private void Reset()
     {
         Body = GetComponent<Rigidbody2D>();
-        GroundedCollider = GetComponentInChildren<CircleCollider2D>();
-    }
-
-    private void Awake()
-    {
-        Assert.IsTrue(GroundedCollider.offset == Vector2.zero);
-        _normalGravity = Body.gravityScale;
+        LocalCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
+        var time = Time.time;
+        var deltaTime = Time.deltaTime;
+        
+        // INPUT UPDATE
+        var hInput = Input.GetAxisRaw("Horizontal");
         _jumpButtonDown = Input.GetButtonDown("Jump");
         if (_jumpButtonDown)
         {
-            _jumpButtonDownTime = Time.time;
+            _jumpButtonDownTime = time;
             _jumpButton = true;
-        }
-        else // not jump down
-        {
-            _jumpButton = Input.GetButton("Jump");
-        }
-        
-        UpdateGrounded();
-        if (_grounded)
-        {
-            // if(_jumping && Time.time - _jumpButtonDownTime < 0.016f)
-            // {
-            //     JumpOff();
-            // }
-            _superJumped = false;
-        }
-        
-        var hInput = Input.GetAxis("Horizontal");
-        // todo - change force based on grounded
-        Body.AddForce(MoveForce * hInput * Vector2.right);
-
-        if (_jumpButtonDown)
-        {
-            if (CanSuperJump())
-            {
-                SuperJumpOn();
-            }
-            else if (CanJump())
-            {
-                JumpOn();
-            }
-        }
-        else if (ShouldReleaseJump())
-        {
-            JumpOff();
-        }
-    }
-
-    private void UpdateGrounded()
-    {
-        // todo - actually filter things
-        ContactFilter2D filter = new ContactFilter2D
-        {
-            useTriggers = false,
-            useDepth = false,
-            useLayerMask = false,
-            useNormalAngle = false,
-            useOutsideDepth = false
-        };
-        
-        var hitCount = Physics2D.OverlapCircle(GroundedCollider.transform.position, GroundedCollider.radius, filter,
-            GlobalBuffers.ColliderBuffer);
-        Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
-        
-        if (hitCount == 0)
-        {
-            _grounded = false;
         }
         else
         {
-            var foundHit = false;
-            for (int i = 0; i < hitCount; i++)
-            {
-                if (Player.Instance.IsPlayer(GlobalBuffers.ColliderBuffer[i].gameObject))
-                {
-                    continue;
-                }
+            _jumpButton = Input.GetButton("Jump");
+        }
 
-                foundHit = true;
-                _grounded = true;
-                break;
+        var doBubblePop = Input.GetKeyDown(KeyCode.B);
+
+        // GROUNDED UPDATE
+        var hitCount = Physics2D.OverlapBox(transform.TransformPoint(LocalCollider.offset), Vector2.one, 0f, new ContactFilter2D(), GlobalBuffers.ColliderBuffer);
+        Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
+
+        _grounded = false;
+        for (int i = 0; i < hitCount; i++)
+        {
+            var hitCollider = GlobalBuffers.ColliderBuffer[i];
+            // ignore local collider
+            if (LocalCollider == hitCollider)
+            {
+                continue;
             }
 
-            if (!foundHit)
+            _grounded = true;
+            break;
+        }
+        
+        // HORIZONTAL LOGIC
+        if (_grounded)
+        {
+            var velX = Body.linearVelocityX;
+
+            if (Mathf.Abs(hInput) < 0.05f)
             {
-                _grounded = false;
+                Body.linearVelocityX = 0f;
             }
+            else if (!Mathf.Approximately(Mathf.Sign(velX), Mathf.Sign(hInput)))
+            {
+                Body.linearVelocityX = hInput * RunForce * deltaTime;
+            }
+            else
+            {
+                Body.linearVelocityX += hInput * RunForce * deltaTime;
+            }
+            
+            // ground clamp
+            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxRunSpeed, MaxRunSpeed);
+        }
+        else // airborne
+        {
+            Body.linearVelocityX += hInput * AirStrafeForce * deltaTime;
+            // air clamp
+            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxAirStrafeSpeed, MaxAirStrafeSpeed);
+        }
+
+        // JUMP LOGIC
+        if (_grounded)
+        {
+            _jumped = false;
+            _jumping = false;
+            _bubblePopped = false;
+            
+            _lastGroundedTime = time;
+            var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow;
+            if (pendingJump)
+            {
+                StartJump();
+            }
+        }
+        else // not grounded
+        {
+            var isSuperJump = _bubblePopped && !_jumped && time - _bubblePoppedTime <= CoyoteWindow;
+            if (_jumpButtonDown && isSuperJump)
+            {
+                StartSuperJump();
+            }
+            
+            var isCoyote = time - _lastGroundedTime <= CoyoteWindow;
+            if (_jumpButtonDown && isCoyote && !_jumped)
+            {
+                StartJump();
+            }
+
+            // shortfall SMB style
+            if (!_jumpButton && _jumping && Body.linearVelocityY > 0)
+            {
+                Body.linearVelocityY = 0f;
+                _jumping = false;
+            }
+        }
+        
+        // CLAMP FALL SPEED
+        if (Body.linearVelocityY < MaxFallSpeed)
+        {
+            Body.linearVelocityY = MaxFallSpeed;
+        }
+        
+        // APPLY BUBBLE POP
+        if (doBubblePop)
+        {
+            OnBubblePop();
         }
     }
 
-    private bool CanSuperJump()
+    private void StartJump()
     {
-        return !_superJumped && !_jumping && Time.time - _bubbledTime <= BubbleJumpWindow;
-    }
-    
-    private bool CanJump()
-    {
-        return _grounded && !_jumping;
-    }
-
-    private bool ShouldReleaseJump()
-    {
-        return _jumping && (!_jumpButton || (Time.time - _jumpedTime) >= MaxJumpTime);
-    }
-
-    private void JumpOn()
-    {
-        Body.linearVelocityY = JumpSpeed;
-        Body.gravityScale = 0f;
+        _jumped = true;
         _jumping = true;
-        _jumpedTime = Time.time;
         
-        Debug.Log($"[{Time.frameCount}] Jumping");
+        Body.linearVelocityY = InitialJumpVelocity;
     }
 
-    private void SuperJumpOn()
+    private void StartSuperJump()
     {
-        _superJumped = true;
-        Body.linearVelocityY = SuperJumpSpeed;
-        Body.gravityScale = 0f;
-        _jumping = true;
-        _jumpedTime = Time.time;
-        
-        Debug.Log($"[{Time.frameCount}] Super Jumping WindowTime:{Time.time - _bubbledTime:F2}/{BubbleJumpWindow:F2}");
-    }
-
-    // private void DoubleJumpOn()
-    // {
-    //     Body.AddForce(Vector2.up * DoubleJumpForce, ForceMode2D.Impulse);
-    //     Body.gravityScale = 0f;
-    //     _jumping = true;
-    //     var time = Time.time;
-    //     _doubleJumpedTime = time;
-    //     _jumpedTime = time;
-    //     _doubleJumpedTime = time;
-    //     
-    //     Debug.Log($"[{Time.frameCount}] DoubleJumping");
-    // }
-
-    private void JumpOff()
-    {
-        Body.gravityScale = _normalGravity;
+        Body.linearVelocityY = SuperJumpVelocity;
+        _jumped = true;
         _jumping = false;
-        Debug.Log($"[{Time.frameCount}] EndJump");
+    }
+
+    private void StartBubblePopJump()
+    {
+        Body.linearVelocityY = BubblePopVelocity;
+        _jumped = false;
+        _jumping = false;
     }
 
     public void OnBubblePop()
     {
-        //_doubleJumped = false;
         var time = Time.time;
-        _bubbledTime = time;
-        Body.linearVelocityY = BubbleJumpSpeed;
-        _superJumped = false;
         
-        MainCamera.Instance.ScreenShake();
-        
-        Debug.Log($"[{Time.frameCount}] OnBubblePop");
-        
-        if (_jumpButton && time - _jumpButtonDownTime <= BubbleJumpWindow)
-        {
-            Debug.Log($"[{Time.frameCount}] EarlyWindowSuperJump time:{time - _jumpButtonDownTime:F2}/{BubbleJumpWindow:F2}");
+        BubblePopVFX.Play();
+        _bubblePoppedTime = time;
+        _bubblePopped = true;
             
-            SuperJumpOn();
-        }
-        else if (_jumping)
+        if (_jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow)
         {
-            Debug.Log($"[{Time.frameCount}] EarlySuperJump MISS time:{time - _jumpButtonDownTime:F2}/{BubbleJumpWindow:F2}");
+            StartSuperJump();
+        }
+        else
+        {
+            StartBubblePopJump();
         }
     }
 }
