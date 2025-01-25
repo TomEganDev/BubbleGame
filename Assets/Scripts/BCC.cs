@@ -53,10 +53,10 @@ public class BCC : MonoBehaviour
         UpdateGrounded();
         if (_grounded)
         {
-            if(_jumping)
-            {
-                JumpOff();
-            }
+            // if(_jumping && Time.time - _jumpButtonDownTime < 0.016f)
+            // {
+            //     JumpOff();
+            // }
             _superJumped = false;
         }
         
@@ -184,6 +184,8 @@ public class BCC : MonoBehaviour
         _bubbledTime = time;
         Body.linearVelocityY = BubbleJumpSpeed;
         _superJumped = false;
+        
+        MainCamera.Instance.ScreenShake();
         
         Debug.Log($"[{Time.frameCount}] OnBubblePop");
         
