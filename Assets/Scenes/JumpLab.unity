@@ -5755,7 +5755,7 @@ MonoBehaviour:
   LocalCollider: {fileID: 1694460291}
   BubblePopVFX: {fileID: 1009090349}
   PreGroundedJumpWindow: 0.15
-  CoyoteWindow: 0.1
+  CoyoteWindow: 0.15
   InitialJumpVelocity: 6
   BubblePopVelocity: 9
   SuperJumpVelocity: 13
