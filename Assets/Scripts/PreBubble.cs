@@ -8,12 +8,16 @@ public class PreBubble : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Speed,Space.Self);
+        transform.Translate(Vector3.right * (Speed * Time.deltaTime),Space.Self);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // todo - can we attach?
+        if (Player.Instance.IsPlayer(other.gameObject))
+        {
+            return;
+        }
         
         // attach
         transform.GetPositionAndRotation(out var position, out var rotation);

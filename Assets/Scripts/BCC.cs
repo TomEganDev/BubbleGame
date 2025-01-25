@@ -11,16 +11,17 @@ public class BCC : MonoBehaviour
     public float BubbleJumpSpeed = 5f;
     public float SuperJumpSpeed = 7f;
     public float MaxJumpTime = 0.2f;
-    //public float DoubleJumpForce = 3f;
     public float BubbleJumpWindow = .1f;
     public Rigidbody2D Body;
     public CircleCollider2D GroundedCollider;
 
-    //private bool _doubleJumped;
     private bool _jumping;
+    private bool _superJumped;
     private bool _grounded;
+    private bool _jumpButton;
+    private bool _jumpButtonDown;
+    private float _jumpButtonDownTime;
     private float _jumpedTime;
-    //private float _doubleJumpedTime;
     private float _bubbledTime;
     private float _normalGravity;
 
@@ -38,14 +39,34 @@ public class BCC : MonoBehaviour
 
     private void Update()
     {
+        _jumpButtonDown = Input.GetButtonDown("Jump");
+        if (_jumpButtonDown)
+        {
+            _jumpButtonDownTime = Time.time;
+            _jumpButton = true;
+        }
+        else // not jump down
+        {
+            _jumpButton = Input.GetButton("Jump");
+        }
+        
         UpdateGrounded();
+        if (_grounded)
+        {
+            if(_jumping)
+            {
+                JumpOff();
+            }
+            _superJumped = false;
+        }
         
         var hInput = Input.GetAxis("Horizontal");
+        // todo - change force based on grounded
         Body.AddForce(MoveForce * hInput * Vector2.right);
 
-        if (Input.GetButtonDown("Jump"))
+        if (_jumpButtonDown)
         {
-            if (CanBubbleJump())
+            if (CanSuperJump())
             {
                 SuperJumpOn();
             }
@@ -76,7 +97,7 @@ public class BCC : MonoBehaviour
         Assert.IsTrue(hitCount <= _hitBuffer.Length);
         if (hitCount == 0)
         {
-            _grounded = true;
+            _grounded = false;
         }
         else
         {
@@ -100,9 +121,9 @@ public class BCC : MonoBehaviour
         }
     }
 
-    private bool CanBubbleJump()
+    private bool CanSuperJump()
     {
-        return Time.time - _bubbledTime <= BubbleJumpWindow;
+        return !_superJumped && !_jumping && Time.time - _bubbledTime <= BubbleJumpWindow;
     }
     
     private bool CanJump()
@@ -112,7 +133,7 @@ public class BCC : MonoBehaviour
 
     private bool ShouldReleaseJump()
     {
-        return _jumping && (Input.GetButtonUp("Jump") || (Time.time - _jumpedTime) >= MaxJumpTime);
+        return _jumping && (!_jumpButton || (Time.time - _jumpedTime) >= MaxJumpTime);
     }
 
     private void JumpOn()
@@ -127,12 +148,13 @@ public class BCC : MonoBehaviour
 
     private void SuperJumpOn()
     {
+        _superJumped = true;
         Body.linearVelocityY = SuperJumpSpeed;
         Body.gravityScale = 0f;
         _jumping = true;
         _jumpedTime = Time.time;
         
-        Debug.Log($"[{Time.frameCount}] Super Jumping");
+        Debug.Log($"[{Time.frameCount}] Super Jumping WindowTime:{Time.time - _bubbledTime:F2}/{BubbleJumpWindow:F2}");
     }
 
     // private void DoubleJumpOn()
@@ -160,5 +182,20 @@ public class BCC : MonoBehaviour
         //_doubleJumped = false;
         var time = Time.time;
         _bubbledTime = time;
+        Body.linearVelocityY = BubbleJumpSpeed;
+        _superJumped = false;
+        
+        Debug.Log($"[{Time.frameCount}] OnBubblePop");
+        
+        if (_jumpButton && time - _jumpButtonDownTime <= BubbleJumpWindow)
+        {
+            Debug.Log($"[{Time.frameCount}] EarlyWindowSuperJump time:{time - _jumpButtonDownTime:F2}/{BubbleJumpWindow:F2}");
+            
+            SuperJumpOn();
+        }
+        else if (_jumping)
+        {
+            Debug.Log($"[{Time.frameCount}] EarlySuperJump MISS time:{time - _jumpButtonDownTime:F2}/{BubbleJumpWindow:F2}");
+        }
     }
 }

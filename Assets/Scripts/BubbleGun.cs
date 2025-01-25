@@ -14,7 +14,8 @@ public class BubbleGun : MonoBehaviour
         {
             FiringPoint.GetPositionAndRotation(out var position, out var rotation);
             var projectile = Instantiate(PreBubblePrefab, position, rotation);
-            
+            // Debug.Log($"Shot {projectile.name}", projectile);
+            // Debug.Break();
         }
     }
 }

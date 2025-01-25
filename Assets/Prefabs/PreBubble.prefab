@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BubblePrefab: {fileID: 5604345763474840091, guid: 3057c34a2f466834394357953d4b443f, type: 3}
-  Speed: 10
+  Speed: 30
 --- !u!50 &1986392034861560204
 Rigidbody2D:
   serializedVersion: 5
