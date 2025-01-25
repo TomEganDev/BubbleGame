@@ -13,7 +13,12 @@ public class JumpTester : MonoBehaviour
     public float InitialJumpVelocity = 6f;
     public float BubblePopVelocity = 9f;
     public float SuperJumpVelocity = 13f;
-    
+
+    public float RunForce = 10f;
+    public float AirStrafeForce = 10f;
+    public float MaxRunSpeed = 10f;
+    public float MaxFallSpeed = -15f;
+    public float MaxAirStrafeSpeed = 10f;
 
     private bool _grounded;
     private float _lastGroundedTime;
@@ -38,8 +43,10 @@ public class JumpTester : MonoBehaviour
     private void Update()
     {
         var time = Time.time;
+        var deltaTime = Time.deltaTime;
         
         // INPUT UPDATE
+        var hInput = Input.GetAxisRaw("Horizontal");
         _jumpButtonDown = Input.GetButtonDown("Jump");
         if (_jumpButtonDown)
         {
@@ -69,6 +76,34 @@ public class JumpTester : MonoBehaviour
 
             _grounded = true;
             break;
+        }
+        
+        // HORIZONTAL LOGIC
+        if (_grounded)
+        {
+            var velX = Body.linearVelocityX;
+
+            if (Mathf.Abs(hInput) < 0.05f)
+            {
+                Body.linearVelocityX = 0f;
+            }
+            else if (!Mathf.Approximately(Mathf.Sign(velX), Mathf.Sign(hInput)))
+            {
+                Body.linearVelocityX = hInput * RunForce * deltaTime;
+            }
+            else
+            {
+                Body.linearVelocityX += hInput * RunForce * deltaTime;
+            }
+            
+            // ground clamp
+            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxRunSpeed, MaxRunSpeed);
+        }
+        else // airborne
+        {
+            Body.linearVelocityX += hInput * AirStrafeForce * deltaTime;
+            // air clamp
+            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxAirStrafeSpeed, MaxAirStrafeSpeed);
         }
 
         // JUMP LOGIC
@@ -137,7 +172,7 @@ public class JumpTester : MonoBehaviour
     {
         Body.linearVelocityY = SuperJumpVelocity;
         _jumped = true;
-        _jumped = true;
+        _jumping = false;
     }
 
     private void StartBubblePop()

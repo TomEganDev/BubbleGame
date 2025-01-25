@@ -5756,9 +5756,14 @@ MonoBehaviour:
   BubblePopVFX: {fileID: 1009090349}
   PreGroundedJumpWindow: 0.15
   CoyoteWindow: 0.15
-  InitialJumpVelocity: 6
-  BubblePopVelocity: 9
-  SuperJumpVelocity: 13
+  InitialJumpVelocity: 9
+  BubblePopVelocity: 13
+  SuperJumpVelocity: 19
+  RunForce: 75
+  AirStrafeForce: 30
+  MaxRunSpeed: 10
+  MaxFallSpeed: -15
+  MaxAirStrafeSpeed: 10
 --- !u!1 &1833604145
 GameObject:
   m_ObjectHideFlags: 0
