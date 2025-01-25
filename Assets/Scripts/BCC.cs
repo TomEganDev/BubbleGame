@@ -32,7 +32,6 @@ public class BCC : MonoBehaviour
     public bool Jumped => _jumped;
     private bool _jumping;
     public bool Jumping => _jumping;
-    private float _jumpedTime;
 
     private float _bubblePoppedTime;
     private bool _bubblePopped;
@@ -137,7 +136,7 @@ public class BCC : MonoBehaviour
             }
             
             var isCoyote = time - _lastGroundedTime <= CoyoteWindow;
-            if (_jumpButtonDown && isCoyote && !_jumped)
+            if (_jumpButtonDown && isCoyote && !_jumped && !_bubblePopped)
             {
                 StartJump();
             }
@@ -147,6 +146,7 @@ public class BCC : MonoBehaviour
             {
                 Body.linearVelocityY = 0f;
                 _jumping = false;
+                Debug.Log($"[{Time.time}] Shortfall");
             }
         }
         
