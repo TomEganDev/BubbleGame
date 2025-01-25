@@ -143,7 +143,7 @@ public class BCC : MonoBehaviour
             }
 
             // shortfall SMB style
-            if (!_jumpButton && _jumping && Body.linearVelocityY > 0)
+            if (!_jumpButton && _jumping && Body.linearVelocityY > 0 && !_bubblePopped)
             {
                 Body.linearVelocityY = 0f;
                 _jumping = false;
