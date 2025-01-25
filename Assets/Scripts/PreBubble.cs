@@ -4,8 +4,6 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PreBubble : MonoBehaviour
 {
-    private static RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
-    
     public Bubble BubblePrefab;
     public float Speed = 10f;
     public float Radius = 0.25f;
@@ -14,12 +12,12 @@ public class PreBubble : MonoBehaviour
     {
         var deltaTime = Time.deltaTime;
         var filter = new ContactFilter2D(); // todo - actually filter
-        var hitCount = Physics2D.CircleCast(transform.position, Radius, transform.right , filter, _hitBuffer, Speed * deltaTime);
-        Assert.IsTrue(hitCount <= _hitBuffer.Length);
+        var hitCount = Physics2D.CircleCast(transform.position, Radius, transform.right , filter, GlobalBuffers.HitBuffer, Speed * deltaTime);
+        Assert.IsTrue(hitCount <= GlobalBuffers.HitBuffer.Length);
 
         for (int i = 0; i < hitCount; i++)
         {
-            var hit = _hitBuffer[i];
+            var hit = GlobalBuffers.HitBuffer[i];
             if (Player.Instance.IsPlayer(hit.collider.gameObject))
             {
                 continue;

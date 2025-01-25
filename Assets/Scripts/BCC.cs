@@ -4,8 +4,6 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BCC : MonoBehaviour
 {
-    private Collider2D[] _hitBuffer = new Collider2D[16];
-    
     public float MoveForce = 2f;
     public float JumpSpeed = 3f;
     public float BubbleJumpSpeed = 5f;
@@ -92,9 +90,11 @@ public class BCC : MonoBehaviour
             useNormalAngle = false,
             useOutsideDepth = false
         };
+        
         var hitCount = Physics2D.OverlapCircle(GroundedCollider.transform.position, GroundedCollider.radius, filter,
-            _hitBuffer);
-        Assert.IsTrue(hitCount <= _hitBuffer.Length);
+            GlobalBuffers.ColliderBuffer);
+        Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
+        
         if (hitCount == 0)
         {
             _grounded = false;
@@ -104,7 +104,7 @@ public class BCC : MonoBehaviour
             var foundHit = false;
             for (int i = 0; i < hitCount; i++)
             {
-                if (Player.Instance.IsPlayer(_hitBuffer[i].gameObject))
+                if (Player.Instance.IsPlayer(GlobalBuffers.ColliderBuffer[i].gameObject))
                 {
                     continue;
                 }
