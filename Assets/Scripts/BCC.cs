@@ -58,8 +58,6 @@ public class BCC : MonoBehaviour
             _jumpButton = Input.GetButton("Jump");
         }
 
-        var doBubblePop = Input.GetKeyDown(KeyCode.B);
-
         // GROUNDED UPDATE
         var hitCount = Physics2D.OverlapBox(transform.TransformPoint(LocalCollider.offset), Vector2.one, 0f, new ContactFilter2D(), GlobalBuffers.ColliderBuffer);
         Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
@@ -68,8 +66,8 @@ public class BCC : MonoBehaviour
         for (int i = 0; i < hitCount; i++)
         {
             var hitCollider = GlobalBuffers.ColliderBuffer[i];
-            // ignore local collider
-            if (LocalCollider == hitCollider)
+            // ignore local colliders
+            if (Player.Instance.IsPlayer(hitCollider.gameObject))
             {
                 continue;
             }
@@ -147,12 +145,6 @@ public class BCC : MonoBehaviour
         {
             Body.linearVelocityY = MaxFallSpeed;
         }
-        
-        // APPLY BUBBLE POP
-        if (doBubblePop)
-        {
-            OnBubblePop();
-        }
     }
 
     private void StartJump()
@@ -182,6 +174,8 @@ public class BCC : MonoBehaviour
         var time = Time.time;
         
         BubblePopVFX.Play();
+        MainCamera.Instance.ScreenShake();
+        
         _bubblePoppedTime = time;
         _bubblePopped = true;
             

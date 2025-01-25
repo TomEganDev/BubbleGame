@@ -8,6 +8,7 @@ public class CursorManager : MonoBehaviour
     {
         Debug.Log($"Application focus: {hasFocus}");
         Cursor.visible = !hasFocus;
+        Cursor.lockState = hasFocus ? CursorLockMode.Confined : CursorLockMode.None;
         CursorRenderer.gameObject.SetActive(hasFocus);
     }
 
