@@ -70,7 +70,6 @@ public class Bubble : MonoBehaviour
         }
 
         Body.AddForce(Vector2.up * FloatRiseSpeed);
-        
     }
 
     public void SetSize(float radius)
@@ -80,6 +79,14 @@ public class Bubble : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        var isPopper = BubblePopperLookup.IsPopper(other.gameObject);
+        if (isPopper)
+        {
+            Instantiate(BubblePopVFX_Prefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            return;
+        }
+        
         var isPlayer = Player.Instance.IsPlayer(other.gameObject);
         if (!isPlayer)
         {

@@ -11,13 +11,23 @@ public class PreBubble : MonoBehaviour
     private void Update()
     {
         var deltaTime = Time.deltaTime;
-        var filter = new ContactFilter2D(); // todo - actually filter
+        var filter = new ContactFilter2D
+        {
+            useTriggers = true
+        };
         var hitCount = Physics2D.CircleCast(transform.position, Radius, transform.right , filter, GlobalBuffers.HitBuffer, Speed * deltaTime);
         Assert.IsTrue(hitCount <= GlobalBuffers.HitBuffer.Length);
 
         for (int i = 0; i < hitCount; i++)
         {
             var hit = GlobalBuffers.HitBuffer[i];
+
+            if (BubblePopperLookup.IsPopper(hit.collider.gameObject))
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
             if (Player.Instance.IsPlayer(hit.collider.gameObject))
             {
                 continue;
