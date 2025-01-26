@@ -572,10 +572,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8403344563188607787, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3205107595041152940, guid: efd31e7f9f7e4a1419ce02d898f693c0, type: 3}
     - target: {fileID: 919132149155446097, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
       propertyPath: m_Name
       value: BubbleMan_PoseTest
       objectReference: {fileID: 0}
+    - target: {fileID: 8365450901919728542, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2916511496474651333, guid: efd31e7f9f7e4a1419ce02d898f693c0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

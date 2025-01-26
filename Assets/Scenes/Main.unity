@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -13396,6 +13396,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4258539334170406801, guid: 4c9d216233702e34591c7ad2360f2ad2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 42f2b36b866d5d341b87507eb5f05165, type: 2}
+    - target: {fileID: 4926939191717804250, guid: 4c9d216233702e34591c7ad2360f2ad2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f7c208825a0c00441949ccf3ff807660, type: 2}
+    - target: {fileID: 4926939191717804250, guid: 4c9d216233702e34591c7ad2360f2ad2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d3926adb353a22843ac722eefc95c02d, type: 2}
+    - target: {fileID: 4926939191717804250, guid: 4c9d216233702e34591c7ad2360f2ad2, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f7c208825a0c00441949ccf3ff807660, type: 2}
     - target: {fileID: 8657555823506956210, guid: 4c9d216233702e34591c7ad2360f2ad2, type: 3}
       propertyPath: m_Name
       value: Player
