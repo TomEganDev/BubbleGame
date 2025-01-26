@@ -458,6 +458,7 @@ MonoBehaviour:
   - {fileID: 1454263919695127872}
   - {fileID: 260444618527983670}
   RendererRoot: {fileID: 4375640127735760405}
+  PlayerAnimator: {fileID: 3548198183076701356}
   <IsDead>k__BackingField: 0
 --- !u!114 &1202985952556353446
 MonoBehaviour:

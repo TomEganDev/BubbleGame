@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +8,8 @@ public class Player : SingletonComponent<Player>
     public Rigidbody2D Body;
     public GameObject[] ChildLookups;
     public GameObject RendererRoot;
+    public Animator PlayerAnimator;
+    
     [field: SerializeField]
     public bool IsDead { get; private set; }
     
@@ -63,5 +63,12 @@ public class Player : SingletonComponent<Player>
         BCC.Body.bodyType = RigidbodyType2D.Dynamic;
         BCC.Body.linearVelocity = Vector2.zero;
         RendererRoot.SetActive(true);
+    }
+
+    private void LateUpdate()
+    {
+        PlayerAnimator.SetFloat("Speed_X", Mathf.Abs(Body.linearVelocityX));
+        PlayerAnimator.SetFloat("Speed_Y", Body.linearVelocityY);
+        PlayerAnimator.SetBool("Grounded", BCC.Grounded);
     }
 }
