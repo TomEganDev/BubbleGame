@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PreBubble : MonoBehaviour
 {
     public Bubble BubblePrefab;

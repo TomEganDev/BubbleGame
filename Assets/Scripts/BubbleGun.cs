@@ -48,7 +48,12 @@ public class BubbleGun : MonoBehaviour
         }
         
         // update animator
-        var downUp01 = (Vector3.Dot(transform.right, Vector3.up) + 1f) / 2f;
+        //var downUp01 = (Vector3.Dot(transform.right, Vector3.up) + 1f) / 2f;
+        var mainCam = MainCamera.Instance.CameraComponent;
+        var worldAimPosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        var diff = worldAimPosition - transform.position;
+        var angleRad = Mathf.Atan2(diff.y, Mathf.Abs(diff.x));
+        var downUp01 = Mathf.InverseLerp(-Mathf.PI/2f, Mathf.PI/2f, angleRad);
         PlayerAnimator.SetFloat("AimDownUp01", downUp01);
     }
 }

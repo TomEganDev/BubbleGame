@@ -22,12 +22,8 @@ public static class TransformExtensions
     public static void LookAt2D_Mouse(this Transform transform, Vector2 mousePos, Camera camera)
     {
         var worldPos = camera.ScreenToWorldPoint(mousePos);
-        worldPos.z = 0f;
-        var projectedPos = transform.position;
-        projectedPos.z = 0;
-        // transform.LookAt(worldPos);
-        // transform.Rotate(Vector3.up, -90f);
-        var targetRight = worldPos - projectedPos;
-        transform.right = targetRight;
+        var diff = worldPos - transform.position;
+        var angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f,0f,angle);
     }
 }
