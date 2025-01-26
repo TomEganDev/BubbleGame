@@ -22,6 +22,14 @@ public class PreBubble : MonoBehaviour
         {
             var hit = GlobalBuffers.HitBuffer[i];
 
+            var hitBubble = hit.collider.GetComponent<Bubble>();
+            if (hitBubble != null)
+            {
+                hitBubble.Pop();
+                Destroy(gameObject);
+                return;
+            }
+            
             if (BubblePopperLookup.IsPopper(hit.collider.gameObject))
             {
                 Destroy(gameObject);
@@ -43,7 +51,7 @@ public class PreBubble : MonoBehaviour
             {
                 bubbleState = Bubble.State.Floating;
                 receiver.OnAttach(bubble);
-                bubble.SetSize(receiver.BubbleRadius);
+                bubble.SetReceiver(receiver);
             }
             else if (hit.normal.y < -0.5f)
             {
