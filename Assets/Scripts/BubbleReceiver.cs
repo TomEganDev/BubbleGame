@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class BubbleReceiver : MonoBehaviour
@@ -33,18 +34,16 @@ public class BubbleReceiver : MonoBehaviour
         _lookup.Remove(gameObject);
     }
 
-    private void Update()
+    public void OnDetach()
     {
-        if (_received && _bubble == null)
+        Assert.IsTrue(_received);
+        _received = false;
+        if (_parentConstraint != null)
         {
-            _received = false;
-            if (_parentConstraint != null)
-            {
-                _parentConstraint.RemoveSource(0);
-                _parentConstraint.constraintActive = false;
-            }
-            _onBubbleDestroyed.Invoke();
+            _parentConstraint.RemoveSource(0);
+            _parentConstraint.constraintActive = false;
         }
+        _onBubbleDestroyed.Invoke();
     }
     
     public void OnAttach(Bubble bubble)

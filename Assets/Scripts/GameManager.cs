@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GameManager : SingletonComponent<GameManager>
 {
     public enum State : byte
     {
         Playing,
-        Dead
+        Dead,
+        LevelFinished
     }
 
     public State CurrentState => _currentState;
@@ -15,6 +17,8 @@ public class GameManager : SingletonComponent<GameManager>
     public float RespawnTime = 0.5f;
 
     [SerializeField] private Vector3 _respawnPosition;
+
+    private float _finishLevelTime;
 
     private void Start()
     {
@@ -31,6 +35,9 @@ public class GameManager : SingletonComponent<GameManager>
                 break;
             case State.Dead:
                 Update_Dead();
+                break;
+            case State.LevelFinished:
+                Update_LevelFinished();
                 break;
         }
     }
@@ -54,8 +61,27 @@ public class GameManager : SingletonComponent<GameManager>
         }
     }
 
+    private void Update_LevelFinished()
+    {
+        
+    }
+
     public void SetRespawnPosition(Vector3 position)
     {
         _respawnPosition = position;
+    }
+
+    public void OnFinishLevel()
+    {
+        Assert.IsTrue(CurrentState == State.Playing);
+        
+        _currentState = State.LevelFinished;
+        _finishLevelTime = Time.time;
+
+        Player.Instance.BCC.enabled = false;
+        Player.Instance.BCC.Body.simulated = false;
+        Player.Instance.BCC.Body.linearVelocity = Vector3.zero;
+        
+        Debug.Log($"[{Time.frameCount}] FINISHED_LEVEL");
     }
 }
