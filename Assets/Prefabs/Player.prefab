@@ -512,6 +512,84 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!1001 &3253373877246845532
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6568155548512938701}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0509472
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0509474
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0509472
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00146
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00159
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00091
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.011924767
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.2691222
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.007334662
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.9630043
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -2.383
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -179.706
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 64.012
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+      propertyPath: m_Name
+      value: BubbleMan_GunModel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+--- !u!4 &3075104433741759927 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b9a4334df3ffb34db483cb7e3ccd802, type: 3}
+  m_PrefabInstance: {fileID: 3253373877246845532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3492555060350532420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,6 +654,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 3205107595041152940, guid: efd31e7f9f7e4a1419ce02d898f693c0, type: 3}
+    - target: {fileID: -6466249540823518771, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
       propertyPath: m_Name
       value: BubbleMan_PoseTest
@@ -584,9 +666,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2916511496474651333, guid: efd31e7f9f7e4a1419ce02d898f693c0, type: 3}
+    - target: {fileID: 8445307910412745507, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -1486527654978891383, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3075104433741759927}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
       insertIndex: -1
@@ -639,3 +728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1849a5be4bcba0d4dbbc9720e68929a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6568155548512938701 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1486527654978891383, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
+  m_PrefabInstance: {fileID: 3492555060350532420}
+  m_PrefabAsset: {fileID: 0}
