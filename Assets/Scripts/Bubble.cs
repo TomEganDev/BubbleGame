@@ -20,6 +20,7 @@ public class Bubble : MonoBehaviour
     public float FloatRiseSpeed = 0.01f;
 
     private int _spawnTick;
+    private float _spawnTime;
     public int SpawnTick => _spawnTick;
 
     private BubbleReceiver _receiver;
@@ -40,6 +41,7 @@ public class Bubble : MonoBehaviour
         
         // bubble active queue logic
         _spawnTick = Time.frameCount;
+        _spawnTime = Time.time;
         var oldestTick = int.MaxValue;
         var oldestIndex = -1;
         for (int i = 0; i < _bubbleSlots.Length; i++)
@@ -95,6 +97,16 @@ public class Bubble : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (CurrentState == State.Floating && Time.time - _spawnTime > 0.1f)
+        {
+            var collidingWithReceiver = _receiver != null && other.gameObject == _receiver.gameObject;
+            if (!collidingWithReceiver)
+            {
+                Pop();
+                return;
+            }
+        }
+        
         var isPopper = BubblePopperLookup.IsPopper(other.gameObject);
         if (isPopper)
         {
