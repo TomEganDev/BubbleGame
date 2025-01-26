@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : SingletonComponent<Player>
 {
     public BCC BCC;
+    public BubbleGun BubbleGun;
     public Rigidbody2D Body;
     public GameObject[] ChildLookups;
     public GameObject RendererRoot;
@@ -46,6 +47,7 @@ public class Player : SingletonComponent<Player>
         BCC.enabled = false;
         IsDead = true;
         BCC.Body.bodyType = RigidbodyType2D.Static;
+        BubbleGun.enabled = false;
         RendererRoot.SetActive(false);
     }
 
@@ -61,6 +63,7 @@ public class Player : SingletonComponent<Player>
         IsDead = false;
         BCC.Body.bodyType = RigidbodyType2D.Dynamic;
         BCC.Body.linearVelocity = Vector2.zero;
+        BubbleGun.enabled = true;
         RendererRoot.SetActive(true);
     }
 

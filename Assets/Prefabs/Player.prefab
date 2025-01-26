@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BCC: {fileID: 1202985952556353446}
+  BubbleGun: {fileID: 7778787615399457825}
   Body: {fileID: 1465333103008139861}
   ChildLookups:
   - {fileID: 1454263919695127872}
