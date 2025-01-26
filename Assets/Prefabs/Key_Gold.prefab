@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 634657580155261969}
   - component: {fileID: 8573414636295691308}
+  - component: {fileID: 7999626822116648010}
   - component: {fileID: 7653793249942004835}
   - component: {fileID: 7372952044434286408}
   - component: {fileID: 8466146709583534371}
+  - component: {fileID: 3240286776247459391}
   m_Layer: 0
   m_Name: Key_Gold
   m_TagString: Untagged
@@ -48,6 +50,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 1
+--- !u!114 &7999626822116648010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813504737559175968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbc7bdd7fa4a71478dc5990dd2a6e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentConstraint: {fileID: 3240286776247459391}
+  _onBubbleReceived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8466146709583534371}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_simulated
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onBubbleDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8466146709583534371}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_simulated
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  BubbleRadius: 0.6
 --- !u!212 &7653793249942004835
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -176,3 +222,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1773428102 &3240286776247459391
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813504737559175968}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: -4.54, y: 0.61, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets: []
+  m_RotationOffsets: []
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources: []

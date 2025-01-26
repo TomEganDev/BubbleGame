@@ -8,7 +8,7 @@ public class Lock : MonoBehaviour
     public KeyLockColor Color;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private void OnPlayModeEnter()
+    private static void OnPlayModeEnter()
     {
         _lookup.Clear();
     }
