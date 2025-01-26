@@ -45,8 +45,7 @@ public class Player : SingletonComponent<Player>
         
         BCC.enabled = false;
         IsDead = true;
-        BCC.Body.bodyType = RigidbodyType2D.Kinematic;
-        BCC.Body.linearVelocity = Vector2.zero;
+        BCC.Body.bodyType = RigidbodyType2D.Static;
         RendererRoot.SetActive(false);
     }
 
