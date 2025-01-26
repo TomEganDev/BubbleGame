@@ -17,6 +17,12 @@ public class BubbleReceiver : MonoBehaviour
     private Bubble _bubble;
     private bool _received;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private void OnPlayModeEnter()
+    {
+        _lookup.Clear();
+    }
+    
     private void OnEnable()
     {
         _lookup.Add(gameObject, this);
