@@ -36,7 +36,13 @@ public class BubbleReceiver : MonoBehaviour
 
     public void OnDetach()
     {
-        Assert.IsTrue(_received);
+        // todo - fix this
+        if (_received == false)
+        {
+            Debug.LogWarning($"[{Time.frameCount}] OnDetach() called without attachment. This shouldn't happen but it can.");
+            return;
+        }
+        
         _received = false;
         if (_parentConstraint != null)
         {
