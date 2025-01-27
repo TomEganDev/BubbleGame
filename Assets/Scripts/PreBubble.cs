@@ -165,7 +165,8 @@ public class PreBubble : MonoBehaviour
                 bubble.SetReceiver(receiver);
             }
             
-            bubble.OnSpawn(bubbleState);
+            
+            bubble.OnSpawn(bubbleState, hit.collider.attachedRigidbody);
             
             Destroy(gameObject);
 

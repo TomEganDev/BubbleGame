@@ -17,6 +17,7 @@ public class Bubble : MonoBehaviour
     public ParticleSystem BubblePopVFX_Prefab;
     public CircleCollider2D BubbleTrigger;
     public Rigidbody2D Body;
+    private Rigidbody2D _attachedToBody;
     public float FloatRiseSpeed = 0.01f;
 
     private int _spawnTick;
@@ -27,7 +28,7 @@ public class Bubble : MonoBehaviour
     
     private static Bubble[] _bubbleSlots = new Bubble[3];
     
-    public void OnSpawn(State state)
+    public void OnSpawn(State state, Rigidbody2D _attachedBody)
     {
         // set state
         CurrentState = state;
@@ -38,6 +39,16 @@ public class Bubble : MonoBehaviour
             Body.bodyType = RigidbodyType2D.Dynamic;
             Body.gravityScale = 0f;
         }
+        else
+        {
+            _attachedToBody = _attachedBody;
+            if (_attachedToBody != null)
+            {
+                Body.bodyType = RigidbodyType2D.Kinematic;
+            }
+        }
+
+        
         
         // bubble active queue logic
         _spawnTick = Time.frameCount;
@@ -69,12 +80,15 @@ public class Bubble : MonoBehaviour
 
     private void Update()
     {
+        if (_attachedToBody != null)
+        {
+            Body.linearVelocity = _attachedToBody.linearVelocity;
+        }
+        
         if (CurrentState != State.Floating)
         {
-            return;
+            Body.AddForce(Vector2.up * FloatRiseSpeed);
         }
-
-        Body.AddForce(Vector2.up * FloatRiseSpeed);
     }
 
     public void SetReceiver(BubbleReceiver receiver)
