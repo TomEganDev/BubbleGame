@@ -55,7 +55,11 @@ public class BCC : MonoBehaviour
         var time = Time.time;
         var deltaTime = Time.deltaTime;
 
-        _localVelocity = Body.linearVelocity;
+        _localVelocity.y = Body.linearVelocityY - _platformVelocity.y;
+        _localVelocity.x = Body.linearVelocityX - _platformVelocity.x;
+        
+        //Debug.Log($"[{Time.frameCount}] UpdateBegin bodyVelocity:{Body.linearVelocity:N2} localReintegrate:{_localVelocity:N2}");
+        
         _localVelocity += Physics2D.gravity * (GravityScale * deltaTime);
         
         // INPUT UPDATE
@@ -73,25 +77,26 @@ public class BCC : MonoBehaviour
 
         // GROUNDED UPDATE
         var boxOrigin = GroundedTrigger.transform.TransformPoint(GroundedTrigger.offset);
-        var hitCount = Physics2D.OverlapBox(
-            boxOrigin,
-            GroundedTrigger.size * GroundedTrigger.transform.lossyScale,
-            0f,
-            new ContactFilter2D(),
-            GlobalBuffers.ColliderBuffer);
-        Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
+        var hitCount = Physics2D.BoxCast(boxOrigin, GroundedTrigger.size * GroundedTrigger.transform.lossyScale * 2f,
+            0f, Vector2.down, new ContactFilter2D(), GlobalBuffers.HitBuffer, 0.025f);
+        Assert.IsTrue(hitCount <= GlobalBuffers.HitBuffer.Length);
 
         _grounded = false;
         Collider2D hitCollider = null;
         for (int i = 0; i < hitCount; i++)
         {
+            var hit = GlobalBuffers.HitBuffer[i];
             // ignore local colliders
-            if (Player.Instance.IsPlayer(GlobalBuffers.ColliderBuffer[i].gameObject))
+            if (Player.Instance.IsPlayer(hit.collider.gameObject))
+            {
+                continue;
+            }
+            if (hit.normal.y < 0.5f)
             {
                 continue;
             }
 
-            hitCollider = GlobalBuffers.ColliderBuffer[i];
+            hitCollider = hit.collider;
             _grounded = true;
             break;
         }
@@ -99,7 +104,7 @@ public class BCC : MonoBehaviour
         // HORIZONTAL LOGIC
         if (_grounded)
         {
-            var platformBody = hitCollider.GetComponent<Rigidbody2D>();
+            var platformBody = hitCollider!.GetComponent<Rigidbody2D>();
             if (platformBody != null)
             {
                 _platformVelocity = platformBody.linearVelocity;
@@ -109,7 +114,7 @@ public class BCC : MonoBehaviour
                 _platformVelocity = Vector2.zero;
             }
             
-            var velX = Body.linearVelocityX;
+            var velX = _localVelocity.x;
 
             if (Mathf.Abs(hInput) < 0.05f)
             {
@@ -186,34 +191,43 @@ public class BCC : MonoBehaviour
         {
             Body.linearVelocity += _platformVelocity;
         }
+        
+        //Debug.Log($"[{Time.frameCount}] final velocity: {Body.linearVelocity:N2} local: {_localVelocity:N2} platform:{_platformVelocity:N2}");
     }
 
     private void StartJump()
     {
+        _localVelocity.y = InitialJumpVelocity;
+        _localVelocity.x += _platformVelocity.x;
+        _platformVelocity = Vector2.zero;
+
         _jumped = true;
         _jumping = true;
         _grounded = false;
-
-        _localVelocity.y = InitialJumpVelocity;
         
-        //Debug.Log($"[{Time.frameCount}] StartJump vel:{_localVelocity.y:N2}");
+        Debug.Log($"[{Time.frameCount}] StartJump vel:{_localVelocity.y:N2}");
     }
 
     private void StartSuperJump()
     {
         _localVelocity.y = SuperJumpVelocity;
         Body.linearVelocityY = _localVelocity.y;
+        _localVelocity.x += _platformVelocity.x;
+        _platformVelocity = Vector2.zero;
+        
         _jumped = true;
         _jumping = false;
         _grounded = false;
 
-        //Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{_localVelocity.y:N2}");
+        Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{_localVelocity.y:N2}");
     }
 
     private void StartBubblePopJump(Bubble bubble)
     {
         _localVelocity.y = bubble.CurrentState == Bubble.State.Roof ? -BubblePopVelocity : BubblePopVelocity;
         Body.linearVelocityY = _localVelocity.y;
+        _localVelocity.x += _platformVelocity.x;
+        _platformVelocity = Vector2.zero;
 
         if (bubble.CurrentState == Bubble.State.Wall)
         {
