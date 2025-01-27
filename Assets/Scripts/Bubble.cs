@@ -85,7 +85,7 @@ public class Bubble : MonoBehaviour
             Body.linearVelocity = _attachedToBody.linearVelocity;
         }
         
-        if (CurrentState != State.Floating)
+        if (CurrentState == State.Floating)
         {
             Body.AddForce(Vector2.up * FloatRiseSpeed);
         }
