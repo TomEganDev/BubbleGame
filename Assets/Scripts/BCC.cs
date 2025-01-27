@@ -6,7 +6,8 @@ public class BCC : MonoBehaviour
 {
     public Rigidbody2D Body;
     public BoxCollider2D GroundedTrigger;
-    
+
+    public float GravityScale = 2.5f;
     public float PreGroundedJumpWindow = 0.15f;
     public float CoyoteWindow = 0.15f;
     public float InitialJumpVelocity = 9f;
@@ -36,6 +37,12 @@ public class BCC : MonoBehaviour
     private float _bubblePoppedTime;
     private bool _bubblePopped;
     public bool BubblePopped => _bubblePopped;
+
+    public Vector2 PlatformVelocity => _platformVelocity;
+    [SerializeField] private Vector2 _platformVelocity;
+    
+    public Vector2 LocalVelocity => _localVelocity;
+    [SerializeField] private Vector2 _localVelocity;
     
     private void Reset()
     {
@@ -47,6 +54,8 @@ public class BCC : MonoBehaviour
     {
         var time = Time.time;
         var deltaTime = Time.deltaTime;
+
+        _localVelocity += Physics2D.gravity * (GravityScale * deltaTime);
         
         // INPUT UPDATE
         var hInput = Input.GetAxisRaw("Horizontal");
@@ -72,15 +81,16 @@ public class BCC : MonoBehaviour
         Assert.IsTrue(hitCount <= GlobalBuffers.ColliderBuffer.Length);
 
         _grounded = false;
+        Collider2D hitCollider = null;
         for (int i = 0; i < hitCount; i++)
         {
-            var hitCollider = GlobalBuffers.ColliderBuffer[i];
             // ignore local colliders
-            if (Player.Instance.IsPlayer(hitCollider.gameObject))
+            if (Player.Instance.IsPlayer(GlobalBuffers.ColliderBuffer[i].gameObject))
             {
                 continue;
             }
 
+            hitCollider = GlobalBuffers.ColliderBuffer[i];
             _grounded = true;
             break;
         }
@@ -88,29 +98,39 @@ public class BCC : MonoBehaviour
         // HORIZONTAL LOGIC
         if (_grounded)
         {
+            var platformBody = hitCollider.GetComponent<Rigidbody2D>();
+            if (platformBody != null)
+            {
+                _platformVelocity = platformBody.linearVelocity;
+            }
+            else
+            {
+                _platformVelocity = Vector2.zero;
+            }
+            
             var velX = Body.linearVelocityX;
 
             if (Mathf.Abs(hInput) < 0.05f)
             {
-                Body.linearVelocityX = 0f;
+                _localVelocity.x = 0f;
             }
             else if (!Mathf.Approximately(Mathf.Sign(velX), Mathf.Sign(hInput)))
             {
-                Body.linearVelocityX = hInput * RunForce * deltaTime;
+                _localVelocity.x = hInput * RunForce * deltaTime;
             }
             else
             {
-                Body.linearVelocityX += hInput * RunForce * deltaTime;
+                _localVelocity.x += hInput * RunForce * deltaTime;
             }
             
             // ground clamp
-            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxRunSpeed, MaxRunSpeed);
+            _localVelocity.x = Mathf.Clamp(_localVelocity.x, -MaxRunSpeed, MaxRunSpeed);
         }
         else // airborne
         {
-            Body.linearVelocityX += hInput * AirStrafeForce * deltaTime;
+            _localVelocity.x += hInput * AirStrafeForce * deltaTime;
             // air clamp
-            Body.linearVelocityX = Mathf.Clamp(Body.linearVelocityX, -MaxAirStrafeSpeed, MaxAirStrafeSpeed);
+            _localVelocity.x = Mathf.Clamp(_localVelocity.x, -MaxAirStrafeSpeed, MaxAirStrafeSpeed);
         }
 
         // JUMP LOGIC
@@ -147,41 +167,44 @@ public class BCC : MonoBehaviour
             // shortfall SMB style
             if (!_jumpButton && _jumping && Body.linearVelocityY > 0 && !_bubblePopped)
             {
-                Body.linearVelocityY = 0f;
+                _localVelocity.y = 0f;
                 _jumping = false;
-                Debug.Log($"[{Time.frameCount}] Shortfall");
+                //Debug.Log($"[{Time.frameCount}] Shortfall");
             }
         }
         
         // CLAMP FALL SPEED
-        if (Body.linearVelocityY < MaxFallSpeed)
+        if (!_grounded && _localVelocity.y < MaxFallSpeed)
         {
-            Body.linearVelocityY = MaxFallSpeed;
+            _localVelocity.y = MaxFallSpeed;
         }
+        
+        // FINAL VELOCITY
+        Body.linearVelocity = _localVelocity + _platformVelocity;
     }
 
     private void StartJump()
     {
         _jumped = true;
         _jumping = true;
+
+        _localVelocity.y = InitialJumpVelocity;
         
-        Body.linearVelocityY = InitialJumpVelocity;
-        
-        Debug.Log($"[{Time.frameCount}] StartJump vel:{Body.linearVelocity:N2}");
+        //Debug.Log($"[{Time.frameCount}] StartJump vel:{_localVelocity.y:N2}");
     }
 
     private void StartSuperJump()
     {
-        Body.linearVelocityY = SuperJumpVelocity;
+        _localVelocity.y = SuperJumpVelocity;
         _jumped = true;
         _jumping = false;
-        
-        Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{Body.linearVelocity:N2}");
+
+        //Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{_localVelocity.y:N2}");
     }
 
     private void StartBubblePopJump(Bubble bubble)
     {
-        Body.linearVelocityY = bubble.CurrentState == Bubble.State.Roof ? -BubblePopVelocity : BubblePopVelocity;
+        _localVelocity.y = bubble.CurrentState == Bubble.State.Roof ? -BubblePopVelocity : BubblePopVelocity;
 
         if (bubble.CurrentState == Bubble.State.Wall)
         {
@@ -191,7 +214,7 @@ public class BCC : MonoBehaviour
         _jumped = false;
         _jumping = false;
         
-        Debug.Log($"[{Time.frameCount}] StartBubblePopJump Bubble_State:{bubble.CurrentState} vel:{Body.linearVelocity:N2}");
+        Debug.Log($"[{Time.frameCount}] StartBubblePopJump Bubble_State:{bubble.CurrentState} vel:{_localVelocity.y:N2}");
     }
 
     public void OnBubblePop(Bubble bubble)
@@ -222,6 +245,6 @@ public class BCC : MonoBehaviour
         Assert.IsTrue(bubble.CurrentState == Bubble.State.Wall);
         
         var onRight = bubble.transform.position.x > transform.position.x;
-        Body.linearVelocityX = onRight ? -BubblePopWallPushVelocity : BubblePopWallPushVelocity;
+        _localVelocity.x = onRight ? -BubblePopWallPushVelocity : BubblePopWallPushVelocity;
     }
 }

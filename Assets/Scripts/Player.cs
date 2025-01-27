@@ -69,8 +69,8 @@ public class Player : SingletonComponent<Player>
 
     private void LateUpdate()
     {
-        PlayerAnimator.SetFloat("Speed_X", Mathf.Abs(Body.linearVelocityX));
-        PlayerAnimator.SetFloat("Speed_Y", Body.linearVelocityY);
+        PlayerAnimator.SetFloat("Speed_X", Mathf.Abs(BCC.LocalVelocity.x));
+        PlayerAnimator.SetFloat("Speed_Y", BCC.LocalVelocity.y);
         PlayerAnimator.SetBool("Grounded", BCC.Grounded);
     }
 }

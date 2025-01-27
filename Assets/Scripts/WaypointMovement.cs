@@ -62,6 +62,7 @@ public class WaypointMovement : MonoBehaviour
         while (waypointDistance < remainingMovement)
         {
             safetyCount++;
+            // todo - can I remove this now?
             if (safetyCount == 10000)
             {
                 Debug.LogError($"Didn't exaust movement in 10000 tries, remaining:{remainingMovement}");
@@ -101,7 +102,8 @@ public class WaypointMovement : MonoBehaviour
         }
         else
         {
-            _body.MovePosition(finalPosition);
+            //_body.MovePosition(finalPosition);
+            _body.linearVelocity = (finalPosition - startPosition).normalized * _speed;
         }
     }
 
