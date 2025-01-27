@@ -170,7 +170,7 @@ public class BCC : MonoBehaviour
             {
                 _localVelocity.y = 0f;
                 _jumping = false;
-                //Debug.Log($"[{Time.frameCount}] Shortfall");
+                Debug.Log($"[{Time.frameCount}] Shortfall");
             }
         }
         
@@ -181,13 +181,18 @@ public class BCC : MonoBehaviour
         }
         
         // FINAL VELOCITY
-        Body.linearVelocity = _localVelocity + _platformVelocity;
+        Body.linearVelocity = _localVelocity;
+        if (_grounded)
+        {
+            Body.linearVelocity += _platformVelocity;
+        }
     }
 
     private void StartJump()
     {
         _jumped = true;
         _jumping = true;
+        _grounded = false;
 
         _localVelocity.y = InitialJumpVelocity;
         
@@ -197,8 +202,10 @@ public class BCC : MonoBehaviour
     private void StartSuperJump()
     {
         _localVelocity.y = SuperJumpVelocity;
+        Body.linearVelocityY = _localVelocity.y;
         _jumped = true;
         _jumping = false;
+        _grounded = false;
 
         //Debug.Log($"[{Time.frameCount}] StartSuperJump vel:{_localVelocity.y:N2}");
     }
@@ -206,6 +213,7 @@ public class BCC : MonoBehaviour
     private void StartBubblePopJump(Bubble bubble)
     {
         _localVelocity.y = bubble.CurrentState == Bubble.State.Roof ? -BubblePopVelocity : BubblePopVelocity;
+        Body.linearVelocityY = _localVelocity.y;
 
         if (bubble.CurrentState == Bubble.State.Wall)
         {
@@ -214,8 +222,9 @@ public class BCC : MonoBehaviour
         
         _jumped = false;
         _jumping = false;
+        _grounded = false;
         
-        Debug.Log($"[{Time.frameCount}] StartBubblePopJump Bubble_State:{bubble.CurrentState} vel:{_localVelocity.y:N2}");
+        Debug.Log($"[{Time.frameCount}] {bubble.GetInstanceID()} StartBubblePopJump Bubble_State:{bubble.CurrentState} vel:{_localVelocity.y:N2}");
     }
 
     public void OnBubblePop(Bubble bubble)
@@ -233,7 +242,7 @@ public class BCC : MonoBehaviour
                 HandleWallBubble(bubble);
             }
             
-            Debug.Log($"[{Time.frameCount}] PreGroundedSuperJump vel:{Body.linearVelocity:N2}");
+            Debug.Log($"[{Time.frameCount}] PreGroundedSuperJump vel:{_localVelocity:N2}");
         }
         else
         {
@@ -247,6 +256,7 @@ public class BCC : MonoBehaviour
         
         var onRight = bubble.transform.position.x > transform.position.x;
         _localVelocity.x = onRight ? -BubblePopWallPushVelocity : BubblePopWallPushVelocity;
+        Body.linearVelocityX = _localVelocity.x;
     }
 
     public void StopDead()

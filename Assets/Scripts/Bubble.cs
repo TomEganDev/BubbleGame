@@ -25,6 +25,7 @@ public class Bubble : MonoBehaviour
     public int SpawnTick => _spawnTick;
 
     private BubbleReceiver _receiver;
+    private bool _popped;
     
     private static Bubble[] _bubbleSlots = new Bubble[3];
     
@@ -107,10 +108,17 @@ public class Bubble : MonoBehaviour
         }
         Instantiate(BubblePopVFX_Prefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        _popped = true;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // are we destroying
+        if (_popped)
+        {
+            return;
+        }
+        
         if (CurrentState == State.Floating && Time.time - _spawnTime > 0.1f)
         {
             var collidingWithReceiver = _receiver != null && other.gameObject == _receiver.gameObject;
