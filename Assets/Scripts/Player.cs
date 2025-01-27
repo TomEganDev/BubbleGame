@@ -10,6 +10,7 @@ public class Player : SingletonComponent<Player>
     public GameObject[] ChildLookups;
     public GameObject RendererRoot;
     public Animator PlayerAnimator;
+    public ParticleSystem DeathVFX;
     
     [field: SerializeField]
     public bool IsDead { get; private set; }
@@ -49,7 +50,12 @@ public class Player : SingletonComponent<Player>
         IsDead = true;
         BCC.Body.bodyType = RigidbodyType2D.Static;
         BubbleGun.enabled = false;
+        
         RendererRoot.SetActive(false);
+        if (DeathVFX != null)
+        {
+            DeathVFX.Play();
+        }
     }
 
     public void OnRespawn()

@@ -578,6 +578,7 @@ Transform:
   - {fileID: 5490762549699692995}
   - {fileID: 1502853898841416595}
   - {fileID: 7382359415519307345}
+  - {fileID: 7117135318159285188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2504750276219756670
@@ -600,6 +601,7 @@ MonoBehaviour:
   - {fileID: 260444618527983670}
   RendererRoot: {fileID: 4375640127735760405}
   PlayerAnimator: {fileID: 3548198183076701356}
+  DeathVFX: {fileID: 5301416680322588594}
   <IsDead>k__BackingField: 0
 --- !u!114 &1202985952556353446
 MonoBehaviour:
@@ -615,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 1465333103008139861}
   GroundedTrigger: {fileID: 8699524813447541643}
+  GravityScale: 2.5
   PreGroundedJumpWindow: 0.15
   CoyoteWindow: 0.15
   InitialJumpVelocity: 9
@@ -626,6 +629,8 @@ MonoBehaviour:
   MaxRunSpeed: 10
   MaxFallSpeed: -15
   MaxAirStrafeSpeed: 10
+  _platformVelocity: {x: 0, y: 0}
+  _localVelocity: {x: 0, y: 0}
 --- !u!50 &1465333103008139861
 Rigidbody2D:
   serializedVersion: 5
@@ -641,7 +646,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0
-  m_GravityScale: 2.5
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -889,4 +894,83 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: -1486527654978891383, guid: 0b468abd6dd81bd4ca8bcda55be8deb3, type: 3}
   m_PrefabInstance: {fileID: 3492555060350532420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4356044449129401105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 554741265707104843}
+    m_Modifications:
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0039305687
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.637
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.049504954
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494260832872354979, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: stopAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494260832872354979, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494260832872354979, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155362435867496719, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+      propertyPath: m_Name
+      value: Pop_VFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+--- !u!198 &5301416680322588594 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8494260832872354979, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+  m_PrefabInstance: {fileID: 4356044449129401105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7117135318159285188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6824892449881510101, guid: 839ea2365e27ac04b9c4b4c2ab90d567, type: 3}
+  m_PrefabInstance: {fileID: 4356044449129401105}
   m_PrefabAsset: {fileID: 0}

@@ -24,7 +24,7 @@ public class KillPlayerTrigger : MonoBehaviour
 
         if (Player.Instance.IsDead)
         {
-            Debug.LogWarning($"[{Time.frameCount}] {name}.KillPlayerTrigger.OnTriggerEnter2D called while dead");
+            //Debug.LogWarning($"[{Time.frameCount}] {name}.KillPlayerTrigger.OnTriggerEnter2D called while dead");
             return;
         }
         
