@@ -24,6 +24,7 @@ public class Key : MonoBehaviour
         if (!Lock.TryGetLock(Color, out var lockObj))
         {
             Debug.LogError($"No lock found for color {Color}");
+            return;
         }
         
         Destroy(lockObj.gameObject);
