@@ -151,14 +151,10 @@ public class BCC : MonoBehaviour
         {
             _jumped = false;
             _jumping = false;
-            if (_bubblePopped && time - _bubblePoppedTime > 0.016f) // todo - fix hacky wait time
-            {
-                //_bubblePopped = false;
-            }
             _bubblePopped = false;
             
             _lastGroundedTime = time;
-            var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow && !_bubblePopped;
+            var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow && time - _bubblePoppedTime >= CoyoteWindow;
             if (pendingJump)
             {
                 StartJump();
