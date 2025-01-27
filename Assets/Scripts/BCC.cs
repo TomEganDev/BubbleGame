@@ -77,15 +77,19 @@ public class BCC : MonoBehaviour
 
         // GROUNDED UPDATE
         var boxOrigin = GroundedTrigger.transform.TransformPoint(GroundedTrigger.offset);
-        var hitCount = Physics2D.BoxCast(boxOrigin, GroundedTrigger.size * GroundedTrigger.transform.lossyScale * 2f,
-            0f, Vector2.down, new ContactFilter2D(), GlobalBuffers.HitBuffer, 0.025f);
+        var hitCount = Physics2D.BoxCast(boxOrigin, GroundedTrigger.size * GroundedTrigger.transform.lossyScale * 1.1f,
+            0f, Vector2.down, new ContactFilter2D(), GlobalBuffers.HitBuffer, 0f);
         Assert.IsTrue(hitCount <= GlobalBuffers.HitBuffer.Length);
+        
+        //Debug.Log($"[{Time.frameCount}] ground hits: {hitCount}");
 
         _grounded = false;
         Collider2D hitCollider = null;
         for (int i = 0; i < hitCount; i++)
         {
             var hit = GlobalBuffers.HitBuffer[i];
+            //Debug.Log($"Hit {i} {hit.collider.name}", hit.collider);
+            
             // ignore local colliders
             if (Player.Instance.IsPlayer(hit.collider.gameObject))
             {
@@ -146,8 +150,9 @@ public class BCC : MonoBehaviour
             _jumping = false;
             if (_bubblePopped && time - _bubblePoppedTime > 0.016f) // todo - fix hacky wait time
             {
-                _bubblePopped = false;
+                //_bubblePopped = false;
             }
+            _bubblePopped = false;
             
             _lastGroundedTime = time;
             var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow && !_bubblePopped;
@@ -164,8 +169,8 @@ public class BCC : MonoBehaviour
                 StartSuperJump();
             }
             
-            var isCoyote = time - _lastGroundedTime <= CoyoteWindow;
-            if (_jumpButtonDown && isCoyote && !_jumped && !_bubblePopped)
+            var isCoyote = time - _lastGroundedTime <= CoyoteWindow && time - _bubblePoppedTime > CoyoteWindow;
+            if (_jumpButtonDown && isCoyote && !_jumped)
             {
                 StartJump();
             }
