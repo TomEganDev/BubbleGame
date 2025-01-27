@@ -55,6 +55,7 @@ public class BCC : MonoBehaviour
         var time = Time.time;
         var deltaTime = Time.deltaTime;
 
+        _localVelocity = Body.linearVelocity;
         _localVelocity += Physics2D.gravity * (GravityScale * deltaTime);
         
         // INPUT UPDATE
