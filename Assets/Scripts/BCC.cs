@@ -150,7 +150,7 @@ public class BCC : MonoBehaviour
             }
             
             _lastGroundedTime = time;
-            var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow;
+            var pendingJump = _jumpButton && time - _jumpButtonDownTime <= PreGroundedJumpWindow && !_bubblePopped;
             if (pendingJump)
             {
                 StartJump();
