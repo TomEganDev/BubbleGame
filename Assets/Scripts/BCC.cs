@@ -55,8 +55,11 @@ public class BCC : MonoBehaviour
         var time = Time.time;
         var deltaTime = Time.deltaTime;
 
-        _localVelocity.y = Body.linearVelocityY - _platformVelocity.y;
-        _localVelocity.x = Body.linearVelocityX - _platformVelocity.x;
+        _localVelocity = Body.linearVelocity;
+        if (_grounded)
+        {
+            _localVelocity -= _platformVelocity;
+        }
         
         //Debug.Log($"[{Time.frameCount}] UpdateBegin bodyVelocity:{Body.linearVelocity:N2} localReintegrate:{_localVelocity:N2}");
         
@@ -77,8 +80,8 @@ public class BCC : MonoBehaviour
 
         // GROUNDED UPDATE
         var boxOrigin = GroundedTrigger.transform.TransformPoint(GroundedTrigger.offset);
-        var hitCount = Physics2D.BoxCast(boxOrigin, GroundedTrigger.size * GroundedTrigger.transform.lossyScale * 1.1f,
-            0f, Vector2.down, new ContactFilter2D(), GlobalBuffers.HitBuffer, 0f);
+        var hitCount = Physics2D.BoxCast(boxOrigin, GroundedTrigger.size * GroundedTrigger.transform.lossyScale,
+            0f, Vector2.down, new ContactFilter2D(), GlobalBuffers.HitBuffer, 0.05f);
         Assert.IsTrue(hitCount <= GlobalBuffers.HitBuffer.Length);
         
         //Debug.Log($"[{Time.frameCount}] ground hits: {hitCount}");
