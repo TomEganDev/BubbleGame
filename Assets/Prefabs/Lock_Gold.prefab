@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6422223122266363371}
   - component: {fileID: 2437299243916130555}
   - component: {fileID: 7423667126093720365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lock_Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}

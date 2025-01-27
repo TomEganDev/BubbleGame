@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8530844168960057716}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Level_Finish_Flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2539923577144813530}
   - component: {fileID: 5173443978395334576}
   - component: {fileID: 4195995696077979312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8617884549895481296}
   - component: {fileID: 8276686697242292791}
   - component: {fileID: 4249490925228113811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
