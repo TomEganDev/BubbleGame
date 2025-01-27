@@ -114,11 +114,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -132,59 +132,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MultiSpriteTest_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8ab46077fccd746459e2cfb9906ef1e5
-      internalID: -119994049
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bdfea7ffbeda5dc4f8326cb1b73b902c
-      internalID: -1329802860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: MultiSpriteTest_4
       rect:
         serializedVersion: 2
         x: 128
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -193,28 +149,6 @@ TextureImporter:
       bones: []
       spriteID: 4b559f4014616bf44af27128abf3dd3a
       internalID: 953380731
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 457bb2148b006a948b9e1b5b7e2ac10d
-      internalID: -110714109
       vertices: []
       indices: 
       edges: []
@@ -242,37 +176,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MultiSpriteTest_7
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d48c14319a599640b7ffc2f4162436c
-      internalID: -735329671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: MultiSpriteTest_2
       rect:
         serializedVersion: 2
         x: 64
-        y: 224
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 192
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -281,116 +193,6 @@ TextureImporter:
       bones: []
       spriteID: c52fa1efd37af8f458d2353823983a58
       internalID: 1159154380
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_8
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e0aec0610c142dc4890eb55655ebe648
-      internalID: -1811014533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_9
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 197d377c101044144845b651b9c665aa
-      internalID: 1790740243
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_10
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d0a59259ce1f6ce469195b90a54b99db
-      internalID: -1265075983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_11
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 23c1ebbb675470344aebcd4022b0f780
-      internalID: 480220778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_12
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b0d986c340ad3845ae286a9327a8fe3
-      internalID: 593090796
       vertices: []
       indices: 
       edges: []
@@ -411,7 +213,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7cfa91bc3dc7534d980871aa6f51c8e
+      spriteID: 49d51186f66500b42952f164d488a3c0
       internalID: -1847629544
       vertices: []
       indices: 
@@ -421,42 +223,20 @@ TextureImporter:
       name: MultiSpriteTest_14
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6053d2b90d48b04693eb6671778f7fb
+      spriteID: 11cceb814148d084ca158d4accad185a
       internalID: -183439703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_15
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d0a3e6e760a2d9d4baec679732413199
-      internalID: 601957771
       vertices: []
       indices: 
       edges: []
@@ -465,42 +245,20 @@ TextureImporter:
       name: MultiSpriteTest_16
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f617e852befe1b94fb5053c1c5d25518
+      spriteID: 16fd7d3e3cd0f364abf1658a216c5b85
       internalID: 1892866679
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_17
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 938f6dee34c0cf6449f16647ad537c2a
-      internalID: 988133352
       vertices: []
       indices: 
       edges: []
@@ -509,174 +267,20 @@ TextureImporter:
       name: MultiSpriteTest_18
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1032e5689025fa84c99b81c0a84bef1e
-      internalID: 493194626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_19
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: afd05bd4f32076c4ab453f85d9b77c8c
-      internalID: -1194407190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_20
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a0c1272f848f4184bb07c88281c71f23
-      internalID: -407228867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_21
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d567ab03d990fcd4a8a57100c035d8b5
-      internalID: -1665291190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_22
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d6181b304d9999409175d3948d0e94c
-      internalID: 1482076889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_23
-      rect:
-        serializedVersion: 2
         x: 128
         y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5c7fd890bb1f1749a8241a1326f2433
-      internalID: -1061452972
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_24
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25c0fc179980cfe4cb6cc076d9486bf2
-      internalID: -1330020302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MultiSpriteTest_25
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f403d02a3098e884daa2411a84a8eb8d
-      internalID: 694520449
+      spriteID: a653efe77ac44564790b081209de9086
+      internalID: 493194626
       vertices: []
       indices: 
       edges: []
@@ -697,30 +301,30 @@ TextureImporter:
     nameFileIdTable:
       MultiSpriteTest_0: 1383483531
       MultiSpriteTest_1: -119994049
-      MultiSpriteTest_10: -1265075983
-      MultiSpriteTest_11: 480220778
-      MultiSpriteTest_12: 593090796
+      MultiSpriteTest_10: 460181862
+      MultiSpriteTest_11: -1285341362
+      MultiSpriteTest_12: 1910362880
       MultiSpriteTest_13: -1847629544
       MultiSpriteTest_14: -183439703
-      MultiSpriteTest_15: 601957771
+      MultiSpriteTest_15: 1485274369
       MultiSpriteTest_16: 1892866679
-      MultiSpriteTest_17: 988133352
+      MultiSpriteTest_17: 20739533
       MultiSpriteTest_18: 493194626
-      MultiSpriteTest_19: -1194407190
+      MultiSpriteTest_19: 953587985
       MultiSpriteTest_2: 1159154380
-      MultiSpriteTest_20: -407228867
-      MultiSpriteTest_21: -1665291190
-      MultiSpriteTest_22: 1482076889
-      MultiSpriteTest_23: -1061452972
-      MultiSpriteTest_24: -1330020302
-      MultiSpriteTest_25: 694520449
+      MultiSpriteTest_20: -1773671959
+      MultiSpriteTest_21: 2075901975
+      MultiSpriteTest_22: 1592910956
+      MultiSpriteTest_23: -1676105883
+      MultiSpriteTest_24: -802661656
+      MultiSpriteTest_25: 1591120946
       MultiSpriteTest_3: -1329802860
       MultiSpriteTest_4: 953380731
       MultiSpriteTest_5: -110714109
       MultiSpriteTest_6: 89722263
-      MultiSpriteTest_7: -735329671
-      MultiSpriteTest_8: -1811014533
-      MultiSpriteTest_9: 1790740243
+      MultiSpriteTest_7: 407284976
+      MultiSpriteTest_8: 1258447497
+      MultiSpriteTest_9: -1691281107
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
