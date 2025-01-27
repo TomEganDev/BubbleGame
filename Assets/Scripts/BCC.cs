@@ -61,6 +61,8 @@ public class BCC : MonoBehaviour
             _localVelocity -= _platformVelocity;
         }
         
+        _localVelocity.y = Mathf.Clamp(_localVelocity.y, MaxFallSpeed, SuperJumpVelocity);
+        
         //Debug.Log($"[{Time.frameCount}] UpdateBegin bodyVelocity:{Body.linearVelocity:N2} localReintegrate:{_localVelocity:N2}");
         
         _localVelocity += Physics2D.gravity * (GravityScale * deltaTime);
