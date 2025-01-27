@@ -44,6 +44,7 @@ public class Player : SingletonComponent<Player>
             return;
         }
         
+        BCC.StopDead();
         BCC.enabled = false;
         IsDead = true;
         BCC.Body.bodyType = RigidbodyType2D.Static;

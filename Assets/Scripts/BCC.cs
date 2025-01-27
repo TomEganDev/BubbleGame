@@ -247,4 +247,11 @@ public class BCC : MonoBehaviour
         var onRight = bubble.transform.position.x > transform.position.x;
         _localVelocity.x = onRight ? -BubblePopWallPushVelocity : BubblePopWallPushVelocity;
     }
+
+    public void StopDead()
+    {
+        _localVelocity = Vector2.zero;
+        _platformVelocity = Vector2.zero;
+        Body.linearVelocity = Vector2.zero;
+    }
 }
