@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentState>k__BackingField: 0
-  BubblePopVFX_Prefab: {fileID: 8494260832872354979, guid: a3ab5a9409098444aa34bd5675ed0db2, type: 3}
+  BubblePopVFX_Prefab: {fileID: 5052491803504428284, guid: 55312db12df1a4b4793f90d08d84cbf9, type: 3}
   BubbleTrigger: {fileID: 1353690179754599563}
   Body: {fileID: 4380200084107759898}
   FloatRiseSpeed: 0.1
