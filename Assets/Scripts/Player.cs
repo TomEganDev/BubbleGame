@@ -11,6 +11,8 @@ public class Player : SingletonComponent<Player>
     public GameObject RendererRoot;
     public Animator PlayerAnimator;
     public ParticleSystem DeathVFX;
+
+    private bool _reversed;
     
     [field: SerializeField]
     public bool IsDead { get; private set; }
@@ -76,7 +78,21 @@ public class Player : SingletonComponent<Player>
 
     private void LateUpdate()
     {
-        PlayerAnimator.SetFloat("Speed_X", Mathf.Abs(BCC.LocalVelocity.x));
+        var mousePos = MainCamera.Instance.CameraComponent.ScreenToWorldPoint(Input.mousePosition);
+        var thisPos = transform.position;
+        if (_reversed && mousePos.x > thisPos.x)
+        {
+            RendererRoot.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            _reversed = false;
+        }
+        else if(!_reversed && mousePos.x < thisPos.x)
+        {
+            RendererRoot.transform.rotation = Quaternion.identity;
+            _reversed = true;
+        }
+        
+        // animator params
+        PlayerAnimator.SetFloat("Speed_X", BCC.LocalVelocity.x * (_reversed ? -1f : 1f));
         PlayerAnimator.SetFloat("Speed_Y", BCC.LocalVelocity.y);
         PlayerAnimator.SetBool("Grounded", BCC.Grounded);
     }
