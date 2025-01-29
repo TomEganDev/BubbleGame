@@ -1545,10 +1545,12 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 1018107875, guid: 034f8e4645c84084488194b8fbf8a30a, type: 3}
-    - sprite: {fileID: -1224479576, guid: 034f8e4645c84084488194b8fbf8a30a, type: 3}
-    - sprite: {fileID: -1640398140, guid: 034f8e4645c84084488194b8fbf8a30a, type: 3}
-    - sprite: {fileID: -2060267479, guid: 034f8e4645c84084488194b8fbf8a30a, type: 3}
+    - sprite: {fileID: -324076671, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
+    - sprite: {fileID: -1260467722, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
+    - sprite: {fileID: -916183703, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
+    - sprite: {fileID: -1639848071, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
+    - sprite: {fileID: -992986529, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
+    - sprite: {fileID: 1792925965, guid: de53c26f8b22f1f489ba18de456bba56, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4874,7 +4876,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 0
-  m_Pivot: {x: 0, y: 0.4, z: 0}
+  m_Pivot: {x: -0.02, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
