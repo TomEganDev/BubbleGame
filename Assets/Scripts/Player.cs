@@ -11,6 +11,7 @@ public class Player : SingletonComponent<Player>
     public GameObject RendererRoot;
     public Animator PlayerAnimator;
     public ParticleSystem DeathVFX;
+    private ParticleSystemRenderer _deathVFXRenderer;
 
     private bool _reversed;
     
@@ -27,6 +28,11 @@ public class Player : SingletonComponent<Player>
     private void Start()
     {
         IsDead = false;
+
+        if (DeathVFX != null)
+        {
+            _deathVFXRenderer = DeathVFX.GetComponent<ParticleSystemRenderer>();
+        }
     }
 
     public bool IsPlayer(GameObject queryGameObject)
@@ -56,6 +62,7 @@ public class Player : SingletonComponent<Player>
         RendererRoot.SetActive(false);
         if (DeathVFX != null)
         {
+            _deathVFXRenderer.flip = _reversed ? Vector3.right : Vector3.zero;
             DeathVFX.Play();
         }
     }
