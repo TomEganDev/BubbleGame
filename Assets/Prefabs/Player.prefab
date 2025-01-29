@@ -760,6 +760,50 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].time
+      value: 0.0031547546
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[1].time
+      value: 0.9968567
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].inSlope
+      value: 0.33484274
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0.26366353
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 0.33484274
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.17089553
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0.26366353
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0.1492045
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052491803504428284, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
+      propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7026725923947942551, guid: 94c6aace7fdac5b49ae71e8692101790, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
