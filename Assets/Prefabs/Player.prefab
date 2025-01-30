@@ -620,7 +620,7 @@ MonoBehaviour:
   GravityScale: 2.5
   PreGroundedJumpWindow: 0.15
   CoyoteWindow: 0.15
-  InitialJumpVelocity: 9
+  InitialJumpVelocity: 8.5
   BubblePopVelocity: 13
   BubblePopWallPushVelocity: 7
   SuperJumpVelocity: 18
